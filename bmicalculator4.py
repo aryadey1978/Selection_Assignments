@@ -3,9 +3,11 @@
 
 # # Body Mass Index (BMI) Calculator Simulation Code
 
+# ## Build
+
 # #### Include all necessary python libratirs to the code simulator
 
-# In[21]:
+# In[2]:
 
 
 import os
@@ -15,9 +17,15 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
+# In[ ]:
+
+
+
+
+
 # #### Define Global Constants to contain the Range related values pertaining to the BMI
 
-# In[22]:
+# In[3]:
 
 
 maxima_1 = 18.4
@@ -34,17 +42,16 @@ minima_6 = 40
 
 # #### This Block will initiate the dataframe, test the type and content of the dataframe
 
-# In[23]:
+# In[4]:
 
 
 bmi_dta = pd.read_csv("BMI_Data.csv")
 dataframedim = len(bmi_dta) # Save the dimension of the dataframe in the global variable dataframedim
-dataframedim # Test that some value is passaed to the dataframe
 
 
-# #### This Block would check the statistics of the created dataframe post data load as follows
+# #### This Block would check the statistics of the newly created dataframe post data load as follows
 
-# In[24]:
+# In[5]:
 
 
 bmi_dta.info()
@@ -52,7 +59,7 @@ bmi_dta.info()
 
 # #### This Block will display the contents of the dataframe independently as of its latest state
 
-# In[25]:
+# In[6]:
 
 
 bmi_dta.head()
@@ -60,7 +67,7 @@ bmi_dta.head()
 
 # #### This Block will add the Custom columns HeightM & HeightM^2 to calculate height in meters and get it squared
 
-# In[26]:
+# In[7]:
 
 
 # HeightM: Calculated field to convert HeightCm values to meters
@@ -70,7 +77,7 @@ bmi_dta.head()
 # Explore the contents of the dataframe after adding these calculated fields
 
 
-# In[27]:
+# In[8]:
 
 
 if len(bmi_dta) == dataframedim:
@@ -84,7 +91,7 @@ bmi_dta # Explore the newly added columns
 
 # #### This Block calculates the BMI Category & Health Risk of the patient depending on their BMI by adding these columns
 
-# In[31]:
+# In[9]:
 
 
 bmi_dta.loc[(bmi_dta["BMI"]>=maxima_1), "BMI_CATEGORY"] = "Underweight"
@@ -107,10 +114,144 @@ bmi_dta
 
 # #### This Block will calculate the total number of overweight people
 
-# In[36]:
+# In[10]:
 
 
 bmi_dta.groupby("BMI_CATEGORY")["BMI"].count().round(2).sort_values()
+
+
+# ## Unit Testing
+
+# #### Test Case 1: Prove that the object loaded with data is a dataframe and data loaded with was proper without NULLs
+
+# In[11]:
+
+
+print("Following is the object that has been created with its custom statistics:\n")
+bmi_dta.info()
+
+
+# #### Test Case 2: Check that there are 6 rows in the dataframe and no more
+
+# In[12]:
+
+
+print("The total number of rows in the dataframe are:", len(bmi_dta))
+
+
+# #### Test Case 3: Check the content of the dataframe which should match with "BMI_Calculator.xlsx"
+
+# In[13]:
+
+
+# In this test the content of the dataframe will be exploded first
+# The Excel based "BMI_Calculator.xlsx" based out of "BMI_Data.csv" (BMI_Data.csv has been created by the JSON data provided) 
+# will be imported into python via bmi_calc_excel_dta dataframe
+# The content of bmi_dta & bmi_calc_excel_dta will be mirror images to each other
+
+
+# In[26]:
+
+
+bmi_dta # Explode the content of the python BMI Calculator dtaframe
+
+
+# In[27]:
+
+
+# Import the excel data into python
+bmi_calc_excel_dta = pd.read_excel('BMI_Calculator_1.xlsx', index_col=0)  
+
+
+# In[28]:
+
+
+bmi_calc_excel_dta.reset_index() # Explode the content of second dataframe
+
+
+# In[31]:
+
+
+bmi_calc_excel_dta["BMI"] = bmi_calc_excel_dta["BMI"].round(2) # Modify the BMI data upto 2 decimal places
+
+
+# In[35]:
+
+
+bmi_calc_excel_dta.reset_index() # Explode the contents of BMI_Calculator.xslx dataframe 
+# Data is matching
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
