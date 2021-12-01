@@ -7,7 +7,7 @@
 
 # #### Include all necessary python libratirs to the code simulator
 
-# In[1]:
+# In[21]:
 
 
 import os
@@ -32,7 +32,7 @@ from email.message import EmailMessage
 
 # #### Define Global Constants to contain the Range related values pertaining to the BMI
 
-# In[2]:
+# In[22]:
 
 
 maxima_1 = 18.4
@@ -49,7 +49,7 @@ minima_6 = 40
 
 # #### This Block will initiate the dataframe, test the type and content of the dataframe
 
-# In[3]:
+# In[23]:
 
 
 bmi_dta = pd.read_csv("BMI_Data.csv")
@@ -58,7 +58,7 @@ dataframedim = len(bmi_dta) # Save the dimension of the dataframe in the global 
 
 # #### This Block would check the statistics of the newly created dataframe post data load as follows
 
-# In[4]:
+# In[24]:
 
 
 bmi_dta.info()
@@ -66,7 +66,7 @@ bmi_dta.info()
 
 # #### This Block will display the contents of the dataframe independently as of its latest state
 
-# In[5]:
+# In[25]:
 
 
 bmi_dta.head()
@@ -74,7 +74,7 @@ bmi_dta.head()
 
 # #### This Block will add the Custom columns HeightM & HeightM^2 to calculate height in meters and get it squared
 
-# In[6]:
+# In[26]:
 
 
 # HeightM: Calculated field to convert HeightCm values to meters
@@ -84,7 +84,7 @@ bmi_dta.head()
 # Explore the contents of the dataframe after adding these calculated fields
 
 
-# In[7]:
+# In[27]:
 
 
 if len(bmi_dta) == dataframedim:
@@ -98,7 +98,7 @@ bmi_dta # Explore the newly added columns
 
 # #### This Block calculates the BMI Category & Health Risk of the patient depending on their BMI by adding these columns
 
-# In[8]:
+# In[28]:
 
 
 bmi_dta.loc[(bmi_dta["BMI"]>=maxima_1), "BMI_CATEGORY"] = "Underweight"
@@ -121,7 +121,7 @@ bmi_dta
 
 # #### This Block will calculate the total number of overweight people
 
-# In[9]:
+# In[29]:
 
 
 bmi_dta.groupby("BMI_CATEGORY")["BMI"].count().round(2).sort_values()
@@ -129,20 +129,20 @@ bmi_dta.groupby("BMI_CATEGORY")["BMI"].count().round(2).sort_values()
 
 # #### This Block will email the contents of dataframe bmi_dta via an excel to dey.arya@gmail.com & aryade@yahoo.com
 
-# In[10]:
+# In[30]:
 
 
 bmi_dta.to_excel (r"C:\Users\User\Desktop\Vamstar\export_bmi_dta.xlsx", index = False, header=True) # Sending the excel to C:\Users\User
 
 
-# In[11]:
+# In[31]:
 
 
 # The following piece of code will attach 'export_bmi_dta.xlsx' from C:\Users\User 
 # from dey.arya@gmail.com and send it to aryade@yahoo.com
 
 
-# In[12]:
+# In[32]:
 
 
 from_email_addr = "dey.arya@gmail.com"
@@ -162,7 +162,7 @@ part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
 msg.attach(part)
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-server.login(from_email_addr, "Hello_Saskatoon1978@")
+server.login(from_email_addr, "Give your own password") # Original password has been removed 
 text = msg.as_string()
 server.sendmail(from_email_addr, to_email_addr, text)
 server.quit()
